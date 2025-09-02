@@ -63,7 +63,7 @@
             // Crear enlace para GLightbox
             const enlace = document.createElement("a");
             enlace.href = file.download_url;
-            enlace.dataset.glightbox = "title:" + file.name;
+            enlace.dataset.glightbox = "";
             enlace.innerHTML = `<img src="${file.download_url}" alt="${file.name}" />`;
             galeria.appendChild(enlace);
           }
