@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Galería automática</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f9f9f9;
+      margin: 20px;
+      text-align: center;
+    }
+    h1 {
+      margin-bottom: 20px;
+    }
+    #galeria {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+    }
+    #galeria img {
+      width: 220px;
+      height: auto;
+      border-radius: 5px;
+      box-shadow: 0 0 5px rgba(0,0,0,0.3);
+      transition: transform 0.2s;
+    }
+    #galeria img:hover {
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+<body>
+  <h1>📷 Mi Galería Automática</h1>
+  <div id="galeria"></div>
+
+  <script>
+    // ⚡ CAMBIA estos valores a los de tu repo
+    const usuario = "festivalfolkaviles-beep";      // Ej: beznar
+    const repo = "galeria-fotos";     // Ej: galeria-fotos
+    const carpeta = "imagenes";        // Carpeta donde están las fotos
+
+    fetch(`https://api.github.com/repos/${usuario}/${repo}/contents/${carpeta}`)
+      .then(res => res.json())
+      .then(data => {
+        const galeria = document.getElementById("galeria");
+        data.forEach(file => {
+          if (file.type === "file" && /\.(jpg|jpeg|png|gif)$/i.test(file.name)) {
+            const img = document.createElement("img");
+            img.src = file.download_url; // URL directa
+            galeria.appendChild(img);
+          }
+        });
+      })
+      .catch(err => console.error("Error al cargar imágenes:", err));
+  </script>
+</body>
+</html>
